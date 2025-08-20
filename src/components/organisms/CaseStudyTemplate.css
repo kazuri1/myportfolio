@@ -1,0 +1,195 @@
+.case-study-template {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.case-study-sidebar {
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.back-button-container {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.back-button-container button {
+  color: #495057 !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0.5rem 0 !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: opacity 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.back-button-container button:hover {
+  opacity: 0.7 !important;
+  background-color: transparent !important;
+  color: #495057 !important;
+}
+
+.case-study-content {
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.case-study-header {
+  margin-bottom: 3rem;
+  padding: var(--spacing-lg);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.case-study-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-sm) 0;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.case-study-title {
+  font-family: "Geist Mono", "GeistMono-Regular", monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.case-study-media {
+  margin-bottom: 3rem;
+}
+
+.case-study-media .media-container:hover {
+  border-color: transparent !important;
+}
+
+.project-summary {
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.summary-item {
+  text-align: left;
+}
+
+.summary-label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem 0;
+}
+
+.summary-value {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.overview-section {
+  margin-bottom: 4rem;
+  padding: 2rem 0;
+}
+
+.overview-title {
+  font-family: monospace;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.overview-section .media-title {
+  font-size: 1.75rem !important;
+  line-height: 1.1;
+  font-family: "Geist Mono", "GeistMono-Regular", monospace;
+  padding-bottom: 1rem;
+}
+
+.overview-section .media-container:hover {
+  border-color: transparent !important;
+}
+.outcomes-title {
+  font-family: monospace;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-size: 1rem;
+}
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .case-study-template {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .case-study-sidebar {
+    position: static;
+    order: 2;
+  }
+
+  .case-study-content {
+    order: 1;
+    padding: 1.5rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .case-study-template {
+    padding: 1rem;
+  }
+
+  .case-study-sidebar {
+    display: none;
+  }
+
+  .case-study-content {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .case-study-header {
+    text-align: center;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  .summary-item {
+    text-align: center;
+  }
+}

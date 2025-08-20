@@ -1,0 +1,36 @@
+.media-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--color-surface-1);
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.media-container:hover {
+  border-color: var(--color-primary);
+}
+
+.media-video,
+.media-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-video {
+  background-color: var(--color-surface-2);
+}
+
+.media-image {
+  background-color: var(--color-surface-1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .media-container {
+    height: 200px;
+  }
+}

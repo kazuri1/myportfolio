@@ -1,0 +1,31 @@
+.case-study-tile {
+  max-width: 600px;
+  width: 100%;
+  cursor: pointer;
+
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.case-study-tile:hover .media-title {
+  color: var(--color-primary) !important;
+}
+
+.case-study-tile:hover .media-subtitle {
+  color: var(--color-primary) !important;
+}
+
+.case-study-tile:hover .media-container {
+  border-color: var(--color-primary) !important;
+}
+
+.case-study-tile:focus {
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .case-study-tile {
+    max-width: 100%;
+  }
+}

@@ -21,7 +21,7 @@
 }
 
 .back-button-container button {
-  color: #495057 !important;
+  color: var(--color-text-primary) !important;
   background-color: transparent !important;
   border: none !important;
   padding: 0.5rem 0 !important;
@@ -52,7 +52,7 @@
 }
 
 .case-study-subtitle {
-  font-family: "Inter", sans-serif;
+  font-family: "Geist Mono", "GeistMono-Regular", monospace;
   font-size: var(--font-size-md);
   font-weight: 400;
   color: var(--color-text-secondary);

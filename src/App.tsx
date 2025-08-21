@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { SimpleTopNav } from "pulseui-base";
 
 import "./App.css";
@@ -54,9 +54,61 @@ function HomePage() {
 }
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Navigation items configuration
+  const navItems = [
+    {
+      id: "home",
+      label: "Home",
+      href: "/",
+      isActive: location.pathname === "/",
+    },
+    {
+      id: "work",
+      label: "Work",
+      href: "/work",
+      isActive: location.pathname.startsWith("/case-study"),
+    },
+    {
+      id: "about",
+      label: "About",
+      href: "/about",
+      isActive: location.pathname === "/about",
+    },
+    {
+      id: "contact",
+      label: "Contact",
+      href: "/contact",
+      isActive: location.pathname === "/contact",
+    },
+  ];
+
+  // Handle navigation clicks
+  const handleNavClick = (item: any) => {
+    if (item.href && item.href !== location.pathname) {
+      navigate(item.href);
+    }
+  };
+
   return (
     <div className="app">
-      <SimpleTopNav />
+      <SimpleTopNav
+        items={navItems}
+        onItemClick={handleNavClick}
+        activeId={
+          location.pathname === "/"
+            ? "home"
+            : location.pathname.startsWith("/case-study")
+            ? "work"
+            : location.pathname === "/about"
+            ? "about"
+            : location.pathname === "/contact"
+            ? "contact"
+            : "home"
+        }
+      />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/case-study/1password" element={<CaseStudyPage />} />

@@ -4,12 +4,17 @@ import { SimpleTopNav } from "pulseui-base";
 import "./App.css";
 import { CaseStudyTile } from "./components/molecules/CaseStudyTile";
 import { CaseStudyPage } from "./pages/CaseStudyPage";
+import { CallawayGolfPage } from "./pages/CallawayGolfPage";
 
 function HomePage() {
   const navigate = useNavigate();
 
   const handleCaseStudyClick = () => {
     navigate("/case-study/1password");
+  };
+
+  const handleCallawayGolfClick = () => {
+    navigate("/case-study/callaway-golf");
   };
 
   return (
@@ -37,6 +42,7 @@ function HomePage() {
           title="AI-Powered Design System with Advanced Component Library"
           subtitle="DESIGN SYSTEM • IN DEVELOPMENT"
           mediaAlt="AI Design System Interface"
+          onClick={handleCallawayGolfClick}
         />
         <CaseStudyTile
           title="Responsive E-commerce Platform with Modern UI/UX"
@@ -112,6 +118,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/case-study/1password" element={<CaseStudyPage />} />
+        <Route
+          path="/case-study/callaway-golf"
+          element={<CallawayGolfPage />}
+        />
       </Routes>
     </div>
   );

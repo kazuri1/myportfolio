@@ -6,6 +6,7 @@ import { MediaTitle } from "../atoms/MediaTitle";
 import "./CaseStudyTemplate.css";
 import "pulseui-base/styles";
 import { Blockquote } from "../atoms/Blockquote";
+import "./CaseStudyTemplate.css";
 
 export interface CaseStudyTemplateProps {
   children: React.ReactNode;
@@ -16,6 +17,17 @@ export interface CaseStudyTemplateProps {
   mediaUrl?: string;
   mediaAlt?: string;
   placeholderImage?: string;
+  projectSummary?: {
+    role?: string;
+    timeline?: string;
+    team?: string;
+    skills?: string;
+  };
+  overview?: {
+    title?: string;
+    subtitle?: string;
+    blockquote?: string;
+  };
 }
 
 export const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({
@@ -27,41 +39,44 @@ export const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({
   mediaUrl,
   mediaAlt,
   placeholderImage,
+  projectSummary,
+  overview,
 }) => {
   const [activeSection, setActiveSection] = useState<string>("overview");
-
   const tocItems = [
-    { id: "overview", label: "Overview", level: 1 },
-    { id: "problem", label: "Problem Statement", level: 1 },
-    { id: "solution", label: "Solution Approach", level: 1 },
-    { id: "process", label: "Design Process", level: 1 },
-    { id: "outcome", label: "Outcome & Results", level: 1 },
-    { id: "learnings", label: "Key Learnings", level: 1 },
+    { id: "overview", label: "Overview" },
+    { id: "problem", label: "Problem Statement" },
+    { id: "solution", label: "Solution Approach" },
+    { id: "process", label: "Design Process" },
+    { id: "outcome", label: "Outcomes & Results" },
+    { id: "learnings", label: "Key Learnings" },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = tocItems.map((item) => item.id);
-      const scrollPosition = window.scrollY + 100;
+    const sectionElements = tocItems
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean) as HTMLElement[];
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
+    const onScroll = () => {
+      let current = "overview";
+      for (const section of sectionElements) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom > 120) {
+          current = section.id;
           break;
         }
       }
+      setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [tocItems]);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleTocClick = (item: any) => {
-    const element = document.getElementById(item.id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const el = document.getElementById(item.id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -69,9 +84,9 @@ export const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({
       <aside className="case-study-sidebar">
         {onBack && (
           <div className="back-button-container">
-            <Button variant="subtle" onClick={onBack}>
-              <ArrowBackIcon sx={{ fontSize: 16, marginRight: 0.5 }} />
-              Back
+            <Button variant="subtle" onClick={onBack} aria-label="Go back">
+              <ArrowBackIcon fontSize="small" />
+              <span style={{ marginLeft: 8 }}>Back</span>
             </Button>
           </div>
         )}
@@ -104,28 +119,40 @@ export const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({
           <div className="summary-grid">
             <div className="summary-item">
               <h3 className="summary-label">ROLE</h3>
-              <p className="summary-value">Product Design Intern</p>
+              <p className="summary-value">
+                {projectSummary?.role || "Product Design Intern"}
+              </p>
             </div>
             <div className="summary-item">
               <h3 className="summary-label">TIMELINE</h3>
-              <p className="summary-value">Jan - April 2025</p>
+              <p className="summary-value">
+                {projectSummary?.timeline || "Jan - April 2025"}
+              </p>
             </div>
             <div className="summary-item">
               <h3 className="summary-label">TEAM</h3>
               <p className="summary-value">
-                1 PM
-                <br />3 Engineers
-                <br />1 Designer (me!)
+                {projectSummary?.team || (
+                  <>
+                    1 PM
+                    <br />3 Engineers
+                    <br />1 Designer (me!)
+                  </>
+                )}
               </p>
             </div>
             <div className="summary-item">
               <h3 className="summary-label">SKILLS</h3>
               <p className="summary-value">
-                User Research
-                <br />
-                Competitive Analysis
-                <br />
-                Prototyping
+                {projectSummary?.skills || (
+                  <>
+                    User Research
+                    <br />
+                    Competitive Analysis
+                    <br />
+                    Prototyping
+                  </>
+                )}
               </p>
             </div>
           </div>
@@ -133,8 +160,14 @@ export const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({
         <section id="overview" className="overview-section">
           <h3 className="overview-title">Overview </h3>
           <MediaTitle
-            title="1Password is the leading enterprise password manager, now building an end-to-end security ecosystem."
-            subtitle="During my internship, I had the chance to lead design on projects that contribute to this new direction for the company."
+            title={
+              overview?.title ||
+              "1Password is the leading enterprise password manager, now building an end-to-end security ecosystem."
+            }
+            subtitle={
+              overview?.subtitle ||
+              "During my internship, I had the chance to lead design on projects that contribute to this new direction for the company."
+            }
           />
           <Media
             src={mediaUrl}
@@ -143,6 +176,9 @@ export const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({
             width="100%"
             height="400px"
           />
+          {overview?.blockquote && (
+            <Blockquote>{overview.blockquote}</Blockquote>
+          )}
         </section>
         <section id="outcomes" className="outcomes-section">
           <h3 className="outcomes-title">Outcomes </h3>
@@ -171,7 +207,6 @@ export const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({
           </Blockquote>
         </section>
         <br />
-        {children}
       </main>
     </div>
   );
